@@ -1,0 +1,11 @@
+{
+  "project": "The Wolf Medallion",
+  "projectId": "bbeeedb0-713f-4a7a-a532-1493f7f93c00",
+  "commit": "4e77bafa105e91f765cec023db3116814aced23e",
+  "exported_files": 90,
+  "unavailable_binary_files": [
+    "public/favicon.ico",
+    "src/assets/bag-poster.jpg"
+  ],
+  "failed_reads": []
+}

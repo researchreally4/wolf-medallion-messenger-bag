@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <g fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-linecap="round">
+    <circle cx="256" cy="256" r="236" stroke-width="14"/>
+    <circle cx="256" cy="256" r="206" stroke-width="4"/>
+  </g>
+  <g fill="#ffffff">
+    <!-- original stylised wolf head -->
+    <path d="M256 430 L214 372 L170 338 L150 268 L128 120 L196 196 L232 186 L256 196 L280 186 L316 196 L384 120 L362 268 L342 338 L298 372 Z"/>
+  </g>
+  <g fill="#000000">
+    <path d="M196 268 L238 284 L222 300 L186 288 Z"/>
+    <path d="M316 268 L274 284 L290 300 L326 288 Z"/>
+    <path d="M152 150 L196 210 L174 236 Z" opacity="0.6"/>
+    <path d="M360 150 L316 210 L338 236 Z" opacity="0.6"/>
+    <path d="M256 214 L246 330 L256 360 L266 330 Z" opacity="0.5"/>
+    <path d="M230 384 L256 372 L282 384 L256 410 Z"/>
+    <path d="M200 330 L230 350 L214 356 Z" opacity="0.6"/>
+    <path d="M312 330 L282 350 L298 356 Z" opacity="0.6"/>
+  </g>
+</svg>
