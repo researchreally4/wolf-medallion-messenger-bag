@@ -184,17 +184,18 @@ function ProceduralBag() {
   const metalBrush = useMemo(makeMetalBrush, []);
   const leather = useMemo(() => new THREE.MeshPhysicalMaterial({
     color: TINTS["Dark Brown"], map: leatherColor, roughnessMap: leatherRoughness,
-    roughness: 0.56, clearcoat: 0.34, clearcoatRoughness: 0.5,
-    bumpMap: grain, bumpScale: 0.15,
+    roughness: 0.62, clearcoat: 0.22, clearcoatRoughness: 0.46,
+    bumpMap: grain, bumpScale: 0.12,
   }), [grain, leatherColor, leatherRoughness]);
   const canvasMat = useMemo(() => new THREE.MeshStandardMaterial({
-    color: "#343638", map: weaveColor, roughnessMap: weaveRoughness,
+    color: "#292d30", map: weaveColor, roughnessMap: weaveRoughness,
     roughness: 0.96, bumpMap: weave, bumpScale: 0.16,
   }), [weave, weaveColor, weaveRoughness]);
   const brass = useMemo(() => new THREE.MeshStandardMaterial({ color: "#b08a4a", metalness: 0.98, roughness: 0.3, bumpMap: metalBrush, bumpScale: 0.018, roughnessMap: metalBrush }), [metalBrush]);
   const hardwareHighlight = useMemo(() => new THREE.MeshStandardMaterial({ color: "#d6b56e", metalness: 0.98, roughness: 0.23, bumpMap: metalBrush, bumpScale: 0.012, roughnessMap: metalBrush }), [metalBrush]);
   const hardwareEdge = useMemo(() => new THREE.MeshStandardMaterial({ color: "#73572f", metalness: 0.96, roughness: 0.36, bumpMap: metalBrush, bumpScale: 0.016, roughnessMap: metalBrush }), [metalBrush]);
-  const stitchMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: "#c1a577", roughness: 0.92 }), []);
+  const canvasStitchMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: "#8d7a62", roughness: 0.94 }), []);
+  const leatherStitchMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: "#76543c", roughness: 0.96 }), []);
   const stitchHoleMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: "#241a11", roughness: 1 }), []);
 
   const bodySeams = useMemo(() => seamSet([roundedRectPath(0, 0, 0.255, 1.43, 0.98, 0.085)]), []);
@@ -207,11 +208,11 @@ function ProceduralBag() {
   const target = useRef(new THREE.Color(TINTS[tint]));
   useEffect(() => { target.current.set(TINTS[tint]); }, [tint]);
   useEffect(() => () => {
-    [leather, canvasMat, brass, hardwareHighlight, hardwareEdge, stitchMaterial, stitchHoleMaterial,
+    [leather, canvasMat, brass, hardwareHighlight, hardwareEdge, canvasStitchMaterial, leatherStitchMaterial, stitchHoleMaterial,
       weave, weaveColor, weaveRoughness, grain, leatherColor, leatherRoughness, metalBrush,
       bodySeams.thread, bodySeams.holes, strapTailSeams.thread, strapTailSeams.holes, flapSeams.thread, flapSeams.holes]
       .forEach((d) => d.dispose());
-  }, [leather, canvasMat, brass, hardwareHighlight, hardwareEdge, stitchMaterial, stitchHoleMaterial,
+  }, [leather, canvasMat, brass, hardwareHighlight, hardwareEdge, canvasStitchMaterial, leatherStitchMaterial, stitchHoleMaterial,
     weave, weaveColor, weaveRoughness, grain, leatherColor, leatherRoughness, metalBrush, bodySeams, strapTailSeams, flapSeams]);
 
   const flap = useRef<THREE.Group>(null);
@@ -233,7 +234,7 @@ function ProceduralBag() {
       <group>
         <RoundedBox args={[1.6, 1.15, 0.5]} radius={0.08} smoothness={4} material={canvasMat} castShadow receiveShadow />
         <mesh geometry={bodySeams.holes} material={stitchHoleMaterial} renderOrder={1} />
-        <mesh geometry={bodySeams.thread} material={stitchMaterial} renderOrder={2} />
+        <mesh geometry={bodySeams.thread} material={canvasStitchMaterial} renderOrder={2} />
         {/* interior pocket, revealed when flap opens */}
         <mesh position={[0, 0.5, 0.12]}>
           <boxGeometry args={[1.3, 0.25, 0.05]} />
@@ -253,7 +254,7 @@ function ProceduralBag() {
           </mesh>
         ))}
         <mesh geometry={strapTailSeams.holes} material={stitchHoleMaterial} renderOrder={2} />
-        <mesh geometry={strapTailSeams.thread} material={stitchMaterial} renderOrder={3} />
+        <mesh geometry={strapTailSeams.thread} material={leatherStitchMaterial} renderOrder={3} />
         <group position={[0, -0.4, 0]}><Label text="Twin bridle straps" side={-1} /></group>
       </group>
 
@@ -272,7 +273,7 @@ function ProceduralBag() {
             <torusGeometry args={[0.177, 0.006, 8, 48]} />
           </mesh>
           <mesh geometry={flapSeams.holes} material={stitchHoleMaterial} renderOrder={2} />
-          <mesh geometry={flapSeams.thread} material={stitchMaterial} renderOrder={3} />
+          <mesh geometry={flapSeams.thread} material={leatherStitchMaterial} renderOrder={3} />
           <LiquidWolfEmblem variant="decal" size={0.32} position={[0, -0.36, 0.605]} />
           {[-0.45, 0.45].map((x) => (
             <mesh key={x} position={[x, -0.5, 0.595]} material={leather} castShadow>
